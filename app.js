@@ -8,8 +8,8 @@ var multer = require('multer');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-var settings = require('./settings');
-var routes = require('./routes/index');
+var settings = require('./settings');//该工程的配置信息
+var routes = require('./routes/index');//主路由文件，通过index.js来分出各个模块
 
 var app = express();
 
@@ -24,18 +24,18 @@ app.use(multer({
         );
 
 app.use(session({
-                  resave:true,
-                  saveUninitialized:false,
-                  secret:settings.cookieSecret,
-                  key:settings.db,
-                  cookie:{maxAge:1000 * 60 * 60 * 24 * 24 * 30},
-                  store:new MongoStore({
-                                          db:settings.db,
-                                          host:settings.host,
-                                          port:settings.port
-                                          })
-                  })
-        );
+        resave:true,//---------?
+        saveUninitialized:false,
+        secret:settings.cookieSecret,
+        key:settings.db,//cookie name
+        cookie:{maxAge:1000 * 60 * 60 * 24 * 24 * 30},
+        store:new MongoStore({
+            db:settings.db,
+            host:settings.host,
+            port:settings.port
+        })
+}));
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

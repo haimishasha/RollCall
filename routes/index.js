@@ -1,7 +1,9 @@
 /**
+ * 路由分配文件
  * user shuai
  * time 2015/10/28
  */
+module.exports=function(app){
 
-var index1 = require('./index1');
-    index1(app);
+    app.get('/',addMenu);
+}
