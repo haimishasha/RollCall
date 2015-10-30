@@ -1,0 +1,86 @@
+var crypto = require('crypto');
+var Teacher = require('../../models/teacher/teacher.js');
+module.exports = function (app) {
+    app.get('/', function (req, res) {
+        res.render('index', {
+            title: '教师'
+        });
+    });
+    app.post('/', function (req, res) {
+
+    });
+    app.get('/login', function (req, res) {
+        res.render('dianming/login', {
+            title: '登陆'
+        });
+    });
+    app.post('/login', function (req, res) {
+        Teacher.get({number:req.body.number},function(err,teacher){
+            if(!teacher){
+                req.flash('error','不存在');
+                console.log(err);
+                return res.redirect('/login');
+            }
+            var password = req.body.password;
+            if(teacher.password != password){
+                req.flash('error','密码错误');
+                console.log(err);
+                return res.redirect('/reg');
+            }
+            req.session.teacher =teacher;
+            req.flash('success','登陆成功');
+            res.redirect('/');
+        });
+
+    });
+    app.get('/reg', function (req, res) {
+        res.render('dianming/reg', {
+            title: '注册'
+        });
+    });
+    app.post('/reg', function (req, res) {
+        var trueName = req.body.trueName,
+            number = req.body.number,
+            school = req.body.school,
+            password = req.body.password,
+            password_re = req.body['password-repeat'],
+            institute = req.body.institute;
+        var md5 = crypto.createHash('md5'),
+            password = md5.update(req.body.password).digest('hex');
+        var newTeacher = new Teacher({
+            trueName: req.body.trueName,
+            number: req.body.number,
+            school: req.body.school,
+            password: req.body.password,
+            institute: req.body.institute
+        });
+        Teacher.get({number: newTeacher.number},function(err,teacher){
+            if(err){
+                req.flash('error',err);
+                console.log(err);
+                return res.redirect('/reg');
+            }
+            if(teacher){
+                req.flash('error','用户存在');
+                return res.redirect('/login');
+            }
+            newTeacher.save(function(err,teacher){
+                if(err){
+                    req.flash('error',err);
+                    console.log(err);
+                    return res.redirect('/reg');
+                }
+                console.log(teacher);
+                req.session.teacher =teacher;
+                req.flash('success','注册成功');
+                res.redirect('/login');
+            });
+        });
+    });
+
+
+
+
+
+
+};
