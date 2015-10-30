@@ -3,10 +3,11 @@
  * user shuai
  * time 2015/10/28
  */
-
-var addCourses = require('../routes/RollCall/addCourses');
+var addCourses = require('./RollCall/addCourses');
 
 module.exports=function(app){
-
-    app.get('/',addCourses);
+    console.log('/routes/index.js start');
+    //app.get('/',addCourses.add);
+    addCourses(app);
+    console.log('/routes/index.js finish');
 }

@@ -3,8 +3,10 @@
  */
 //var AddCourses = require('../models/teacher/addCourses.js');
 
-module.exports = function(app){
-    app.get('/1',function(req,res){
-        res.send('hell world');
+module.exports= function(app){
+    console.log('./routes/RollCall/addCourses.js start');
+    app.get('/',function(res,req){
+        res.send('hello world');
     });
-}
+    console.log('./routes/RollCall/addCourses.js finish');
+};

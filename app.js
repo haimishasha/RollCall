@@ -20,8 +20,8 @@ app.set('view engine', 'ejs');
 app.use(multer({
     dest:'./public/uploadfiles',
     rename:function(filedname,filename){return filename;}
-                })
-        );
+    })
+    );
 
 app.use(session({
         resave:true,//---------?
