@@ -17,4 +17,5 @@ module.exports=function(app){
     //app.get('/',addCourses.add);
     addCourses(app);
     console.log('/routes/index.js finish');
-}
+
+};

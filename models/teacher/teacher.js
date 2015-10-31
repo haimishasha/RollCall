@@ -22,7 +22,6 @@ Teacher.prototype.save = function (callback) {
         institute: this.institute,
         number: this.number,
         password: this.password,
-
         time: time
     };
     mongodb.open(function (err, db) {
@@ -113,7 +112,7 @@ Teacher.getOne = function (query, callback) {
     });
 };
 //更新数据
-Teacher.update = function (query, date, callback) {
+Teacher.update = function (query, data, callback) {
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
@@ -123,7 +122,7 @@ Teacher.update = function (query, date, callback) {
                 mongodb.close();
                 return callback(err);
             }
-            teacher.update(query, {$set: date}, {multi: true},
+            teacher.update(query, {$set: data}, {multi: true},
                 function (err, result) {
                     mongodb.close();
                     if (err) {
@@ -146,6 +145,50 @@ Teacher.remove = function(query,callback){
                 return callback(err);
             }
             teacher.remove(query,function(err,result){
+                mongodb.close();
+                if(err){
+                    return callback(err);
+                }
+                callback(null,result);
+            });
+        });
+    });
+};
+//删除一条
+Teacher.updatePull = function(query,data,callback){
+    mongodb.open(function(err,db){
+        if(err){
+            mongodb.close();
+            return callback(err);
+        }
+        db.collection('teachers',function(err,teacher){
+            if(err){
+                mongodb.close();
+                return callback(err);
+            }
+            teacher.update(query,{$pull:data},function(err,result){
+                mongodb.close();
+                if(err){
+                    return callback(err);
+                }
+                callback(null,result);
+            });
+        });
+    });
+};
+//增加一条
+Teacher.updatePush = function(query,data,callback){
+    mongodb.open(function(err,db){
+        if(err){
+            mongodb.close();
+            return callback(err);
+        }
+        db.collection('teachers',function(err,teacher){
+            if(err){
+                mongodb.close();
+                return callback(err);
+            }
+            teacher.update(query,{$push:data},function(err,result){
                 mongodb.close();
                 if(err){
                     return callback(err);

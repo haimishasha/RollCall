@@ -1,12 +1,16 @@
 var crypto = require('crypto');
 var Teacher = require('../../models/teacher/teacher.js');
 module.exports = function (app) {
+    app.get('/',checkLogin);
     app.get('/', function (req, res) {
         res.render('index', {
             title: '教师'
         });
     });
     app.post('/', function (req, res) {
+        req.session.teacher = null;
+        console.log(req.session.teacher);
+        res.redirect('/login');
 
     });
     app.get('/login', function (req, res) {
@@ -28,6 +32,7 @@ module.exports = function (app) {
                 return res.redirect('/reg');
             }
             req.session.teacher =teacher;
+            console.log(req.session.teacher);
             req.flash('success','登陆成功');
             res.redirect('/');
         });
@@ -77,10 +82,16 @@ module.exports = function (app) {
             });
         });
     });
-
-
-
-
-
-
+    function checkLogin(req,res,next){
+        if(req.session.teacher==null){
+            res.redirect('/login');
+        }
+        next();
+    }
+    function checkNotLogin(req,res,next){
+        if(req.session.teacher){
+            res.redirect('back');
+        }
+        next();
+    }
 };
