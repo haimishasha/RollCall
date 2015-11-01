@@ -1,7 +1,27 @@
-/**
- * user shuai
- * time 2015/10/30.
- */
-<%- include header%>
-������ʦ�����ĺ�̨ҳ���¼����Ϣ����
-<%- include footer%>
+<%- include header %>
+<h1><%= title %></h1>
+<form method="post">
+    <input type="submit" value="个人信息"/>
+    <fieldset>
+        <legend>个人信息</legend>
+        <div class="inputStyle">
+            <lable for="number">职工号：</lable>
+            <br/>
+            <input type="text" id="number" name="number" value=<%= number %> readonly="readonly"/></div>
+        <div class="inputStyle">
+            <lable for="trueName">真实姓名：</lable>
+            <br/>
+            <input type="text" id="trueName" name="trueName" value=<%= trueName %> readonly="readonly"/></div>
+        <div class="inputStyle">
+            <lable for="school"> 学校：</lable>
+            <br/> <input type="text" id="school" name="school" value="<%= school %>" readonly="readonly"/>
+        </div>
+        <div class="inputStyle">
+            <lable>学院：</lable>
+            <br/> <input type="text" name="institute" value="<%= institute %>" readonly="readonly"/></div>
+    </fieldset>
+    <button type="button" class="submit" id="change">修改</button>
+    <button type="submit" class="submit" id="save">保存</button>
+</form>
+<button class="submit"><a class="aColor" href="/logout">退出</a></button>
+<%- include footer %>

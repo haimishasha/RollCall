@@ -6,26 +6,54 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/teacher.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/teacher.css'/>
     <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body class="bodyCenter ">
 <div class="divBorder">
-<form method="post"  >
-<fieldset >
-    <legend >注册界面</legend>
-    <div class="inputStyle"><lable  for="number">职工号：  </lable><br/><input type="text" id="number" name="number" required="required"/></div>
-    <div class="inputStyle"> <lable>真实姓名：</lable> <br/> <input type="text" name="trueName" required="required"/></div>
-    <div class="inputStyle"> <lable> 学校：</lable> <br/> <input type="text" name="school" required="required"/></div>
-    <div class="inputStyle"> <lable>学院：</lable> <br/> <input type="text" name="institute" required="required"/></div>
-    <div class="inputStyle"><lable>密码：</lable> <br/>   <input type="password" name="password" required="required"/></div>
-    <div class="inputStyle"> <lable>确认密码：</lable><br/><input type="password" name="password-repeat" required="required"/></div>
-    <input class="submit" type="submit" value="注册"/>
-    <button class="submit"> <a class="aColor" href="/login">取消</a></button>
-</fieldset>
-</form>
+    <form method="post">
+        <fieldset>
+            <legend>注册界面</legend>
+            <div class="inputStyle">
+                <lable for="number">职工号：</lable>
+                <br/><input type="text" id="number" name="number" required="required"/></div>
+            <div class="inputStyle">
+                <lable>真实姓名：</lable>
+                <br/> <input type="text" name="trueName" required="required"/></div>
+            <div class="inputStyle">
+                <lable> 学校：</lable>
+                <br/> <input type="text" list="school" name="school" required="required"/>
+                <datalist id="school">
+                    <option value="太原科技大学">
+                    <option value="太原理工大学">
+                    <option value="中北大学">
+                    <option value="山西大学">
+                </datalist>
+            </div>
+            <div class="inputStyle">
+                <lable>学院：</lable>
+                <br/> <input type="text" list="institute" name="institute" required="required"/>
+          <datalist id="institute">
+              <option value="计算机学院">
+              <option value="环境安全学院">
+              <option value="机械学院">
+              <option value="电子学院">
+              <option value="艺术学院">
+              <option value="体育学院">
+              </datalist>
+            </div>
+            <div class="inputStyle">
+                <lable>密码：</lable>
+                <br/> <input type="password" name="password" required="required"/></div>
+            <div class="inputStyle">
+                <lable>确认密码：</lable>
+                <br/><input type="password" name="password-repeat" required="required"/></div>
+            <input class="submit" type="submit" value="注册"/>
+            <button class="submit"><a class="aColor" href="/login">取消</a></button>
+        </fieldset>
+    </form>
 </div>
 <script src="/javascripts/jquery-1.11.1.min.js"></script>
 <script src="/javascripts/jquery-2.1.4.min.jsq"></script>
