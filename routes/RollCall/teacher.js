@@ -29,7 +29,7 @@ module.exports = function (app) {
             if(teacher.password != password){
                 req.flash('error','密码错误');
                 console.log(err);
-                return res.redirect('/reg');
+                return res.redirect('/login');
             }
             req.session.teacher =teacher;
             console.log(req.session.teacher);
