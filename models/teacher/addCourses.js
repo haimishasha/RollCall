@@ -1,107 +1,87 @@
 /**
  * Created by 11747 on 2015/10/30.
  */
-var mongodb = require('../models/db');
+var mongodb = require('../db');
 
-//AddCoursesÎªÊı¾İ¿âÃû addCoursesÎª¼¯ºÏÃû
-//function AddCourses(addCourses){
+//AddCoursesä¸ºæ•°æ®åº“å addCoursessä¸ºé›†åˆå
 var AddCourses = function (addCourses){
-    this.name = addCourses.name;//ÀÏÊ¦µÄĞÕÃû
-    this.school = addCourses.school;//Ñ§Ğ£
-    this.institute = addCourses.institute;//Ñ§Ôº
-    this.num = addCourses.num;//ÀÏÊ¦µÄÖ°¹¤ºÅ
-    this.courseName = addCourses.courseName;//¿Î³ÌÃû
-    this.courseTime = addCourses.courseTime;//¿Î³ÌÊ±¼ä
-    this.courseClass = addCourses.courseClass;//°à¼¶
-    this.classRoom = addCourses.classRoom;//½ÌÊÒ
+    this.number = teacher.number;//èŒå·¥å·
+    this.courseName = addCourses.courseName;//è¯¾ç¨‹å è€å¸ˆä¸Šè¯¾çš„æ‰€æœ‰è¯¾ç¨‹ 
+    this.courseTime = addCourses.courseTime;//è¯¾ç¨‹æ—¶é—´ è€å¸ˆä¸Šè¯¾çš„æ—¶é—´
+    this.courseClass = addCourses.courseClass;//ç­çº§  è€å¸ˆå¸¦çš„æ‰€æœ‰ç­çº§
+    this.classRoom = addCourses.classRoom;//æ•™å®¤   
 };
 module.exports = AddCourses;
 
-//´æ´¢Ìí¼Ó²Ëµ¥
+//å­˜å‚¨æ·»åŠ èœå•
 AddCourses.prototype.save = function(callback){
-    //Ìí¼Ó¿Î³ÌÒª´æÈëÊı¾İ¿âµÄÎÄµµ
+    //æ·»åŠ è¯¾ç¨‹è¦å­˜å…¥æ•°æ®åº“çš„æ–‡æ¡£
     var addCourses = {
-        name: this.name,
-        school: this.school,
-        institute: this.institute,
-        num: this.num,
+        number:this.number,
         courseName: this.courseName,
         courseTime: this.courseTime,
         courseClass: this.courseClass,
         classRoom: this.classRoom
     };
-    //´ò¿ªÊı¾İ¿â
+    //æ‰“å¼€æ•°æ®åº“
     mongodb.open(function(err,db){
         if(err){
-            return callback(err);//´íÎó£¬·µ»ØerrĞÅÏ¢
+            return callback(err);//é”™è¯¯ï¼Œè¿”å›errä¿¡æ¯
         }
-        //¶ÁÈ¡addCourses¼¯ºÏ
-        db.collection('addCourses',function(err,collection){
+        //è¯»å–addCoursessé›†åˆ
+        db.collection('addCoursess',function(err,collection){
             if(err){
                 mongodb.close();
-                return callback(err);//´íÎó£¬·µ»ØerrĞÅÏ¢
+                return callback(err);//é”™è¯¯ï¼Œè¿”å›errä¿¡æ¯
             }
-            //½«Ìí¼ÓµÄ²Ëµ¥ĞÅÏ¢²åÈëµ½adds¼¯ºÏ
-            collection.insert(addCourses,{
+            //å°†æ·»åŠ çš„èœå•ä¿¡æ¯æ’å…¥åˆ°addCoursessé›†åˆ
+            collection.insert(addCoursess,{
                 safe:true
-            },function(err,user){
+            },function(err){
                 mongodb.close();
                 if(err){
-                    return callbacke(err);//´íÎó£¬·µ»ØerrĞÅÏ¢
+                    return callback(err);//é”™è¯¯ï¼Œè¿”å›errä¿¡æ¯
                 }
-                callback(null,addCourses);//³É¹¦£¡errÎªnull£¬²¢·µ»Ø´æ´¢ºóµÄÌí¼Ó²Ëµ¥µÄÓÃ»§ÎÄµµ
+                callback(null);////è¿”å› err ä¸º null
             });
         });
     });
 };
 
-//¶ÁÈ¡Ìí¼Ó¿Î³ÌµÄĞÅÏ¢
-AddCourses.getAll = function(num,callback){
-    //´ò¿ªÊı¾İ¿â
+//è¯»å–æ·»åŠ è¯¾ç¨‹çš„ä¿¡æ¯
+AddCourses.get = function(num,callback){
+    //æ‰“å¼€æ•°æ®åº“
     mongodb.open(function(err,db){
         if(err){
-            return callback(err);//´íÎó£¬·µ»ØerrĞÅÏ¢
+            return callback(err);//é”™è¯¯ï¼Œè¿”å›errä¿¡æ¯
         }
-        //¶ÁÈ¡addCourses¼¯ºÏ
-        db.collection('addCourse',function(err,addCourses){
+        //è¯»å–addCoursessé›†åˆ
+        db.collection('addCoursess',function(err,collection){
             if(err){
                 mongodb.close();
-                return callback(err);//´íÎó£¬·µ»ØerrĞÅÏ¢
+                return callback(err);//é”™è¯¯ï¼Œè¿”å›errä¿¡æ¯
             }
-            //²éÕÒnumµÄÒ»¸öÎÄµµ
-            addCourses.find(num).toArray(function(err,docs){
+            var query = {};
+            if (name){
+                query.number = number;
+            }
+            collection.find(query).sort({}).toArray(function(err,docs){
                 mongodb.close();
                 if(err){
                     return callback(err);
                 }
+                docs.forEach(function(doc){
+                    doc.post = markdown.toHTML(doc.post);
+                });
                 callback(null,docs);
             });
         });
     });
 };
-//AddCourses.getOne = function(num,callback){
-//    mongodb.open(function(err,db){
-//        if(err){
-//            return callback(err);
-//        }
-//        db.collection('addCouse',function(err,addCourses){
-//            if(err){
-//                mongodb.close();
-//                return callback(err);
-//            }
-//            addCourses.findOne(num,function(err,doc){
-//                mongodb.close();
-//                if(err){
-//                    return callback(err);
-//                }
-//                callback(null,doc);
-//            });
-//        });
-//    });
-//};
 
-//Êı¾İ¿âµÄ¸üĞÂ²Ù×÷
-AddCourese.update = function(num,data,callback){
+
+//æ•°æ®åº“çš„æ›´æ–°æ“ä½œ
+AddCourses.update = function(num,data,callback){
     mongodb.open(function(err,db){
         if(err){
             return callback(err);
@@ -122,7 +102,7 @@ AddCourese.update = function(num,data,callback){
     });
 };
 
-//Êı¾İÉ¾³ı
+//æ•°æ®åˆ é™¤
 AddCourses.remove = function(num,callback){
     mongodb.open(function(err,db){
         if(err){
