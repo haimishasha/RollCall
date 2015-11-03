@@ -1,11 +1,14 @@
 <%- include header %>
-<h1><%= title %></h1>
+
+<h1>手动添加课程</h1>
 <form method ="post">
-课程 <input type="text" name="class"/><br />
-时间 <input type="text" name="time" /><br />
-老师职工号 <input type="text" name="teacherid" /><br />
-老师名 <input type="text" name="teachername" /><br />
-        <input type="submit" value="提交" />
-        <input type="submit" value="导入" />
+        职工号:<input type="text" id="number" name="number"/><br />
+        课程名:<input type="text" name="courseName"/><br />
+        课程时间: <input type="text" name="courseTime"/><br />
+        班级: <input type="text" name="courseClass"/><br />
+        教室:<input type="text" name="classRoom" /><br />
+        <input class="submit" type="submit" value="提交" /><br />
 </form>
+        <button class="submit"><a class="aColor" href="/">导入</a></button>
+
 <%- include footer %>

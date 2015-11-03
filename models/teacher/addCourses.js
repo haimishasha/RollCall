@@ -5,7 +5,7 @@ var mongodb = require('../db');
 
 //AddCourses为数据库名 addCoursess为集合名
 var AddCourses = function (addCourses){
-    this.number = teacher.number;//职工号
+    this.number = addCourses.number;//职工号
     this.courseName = addCourses.courseName;//课程名 老师上课的所有课程 
     this.courseTime = addCourses.courseTime;//课程时间 老师上课的时间
     this.courseClass = addCourses.courseClass;//班级  老师带的所有班级
