@@ -15,7 +15,17 @@ module.exports = function (app) {
                 number: teacher.number,
                 trueName: teacher.trueName,
                 school: teacher.school,
-                institute: teacher.institute
+                institute: teacher.institute,
+                education:teacher.education,
+                jobPosition:teacher.jobPosition,
+                nativePlace:teacher.nativePlace,
+                homePosition:teacher.homePosition,
+                wechat:teacher.wechat,
+                telNumber:teacher.telNumber,
+                QQ:teacher.QQ,
+                email:teacher.email,
+                writeTime:teacher.writeTime,
+                remark:teacher.remark
             });
         });
 
@@ -68,6 +78,8 @@ module.exports = function (app) {
     app.get('/reg', function (req, res) {
         res.render('dianming/reg', {
             title: '注册'
+
+
         });
     });
     app.post('/reg', function (req, res) {
