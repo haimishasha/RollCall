@@ -70,3 +70,10 @@ legend{
 .aColor{
     color:black;
 }
+.MainDiv{
+
+    position:relative;
+    display:flex;
+
+
+}
