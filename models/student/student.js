@@ -11,6 +11,8 @@ function Student(student) {
     this.stuNo         = student.stuNo;
     this.stuClass      = student.stuClass;
     this.stuName       = student.stuName;
+    this.stuSchool     = student.stuSchool;
+    this.stuInstitute  = student.stuInstitute;
     this.arrived       = student.arrived;
 };
 module.exports = Student;
@@ -19,11 +21,13 @@ module.exports = Student;
 //存储签到者信息到students集合中
 Student.prototype.save = function(callback) {
   var student = {
-      openid:      this.openid,
-      nickname:    this.nickname,
-      stuNo:       this.stuNo,
-      stuClass:    this.stuClass,
-      stuName:     this.stuName,
+      openid:       this.openid,
+      nickname:     this.nickname,
+      stuNo:        this.stuNo,
+      stuClass:     this.stuClass,
+      stuName:      this.stuName,
+      stuSchool:    this.stuSchool,
+      stuInstitute: this.stuInstitute,
   };
   mongodb.open(function (err, db) {
     if (err) {
@@ -137,12 +141,14 @@ Student.getSome = function(query,callback){
 //存储签到者信息到Kaoqin总集合中
 Student.prototype.pushIntoKaoqin = function (query, data, callback) {
   var student = {
-      openid:      this.openid,
-      nickname:    this.nickname,
-      stuNo:       this.stuNo,
-      stuClass:    this.stuClass,
-      stuName:     this.stuName,
-      arrived:     this.arrived,
+      openid:       this.openid,
+      nickname:     this.nickname,
+      stuNo:        this.stuNo,
+      stuClass:     this.stuClass,
+      stuName:      this.stuName,
+      arrived:      this.arrived,
+      stuSchool:    this.stuSchool,
+      stuInstitute: this.stuInstitute,
   };
   mongodb.open(function (err, db) {
     if (err) {
@@ -212,10 +218,10 @@ Student.updateInKaoqin =  function(query, student, callback) {
 
 
 
-Student.getOneClassInKaoqin = function(query1, stuClass, callback) {
+Student.getOneClassInKaoqin = function(query, stuClass, callback) {
 	var stuClass1 = [];
 	var i = 0;
-	Kaoqin.getOne(query1, function (err, kaoqin){
+	Kaoqin.getOne(query, function (err, kaoqin){
     if(err){
       console.log("err in getOneInKaoqin: " + err);
     }

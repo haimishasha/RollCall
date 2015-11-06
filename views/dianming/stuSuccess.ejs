@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>签到成功</title>
+		 <style>
+		    #can_con_Img {
+		      font-size: 24px;
+		      color: #333;
+		    }
+		 </style>
+		</head>
+	<body>
+	
+		<div class="can_con_Img" id="can_con_Img">
+				
+		</div>
+
+	
+		<script type="text/javascript">
+			//设定倒数秒数
+			var t = 6;
+			//显示倒数秒数
+			function showTime(){
+			    t -= 1;
+			    document.getElementById('can_con_Img').innerHTML= t;
+			    if(t==0){
+			        location.href='/home';
+			    }
+			    //每秒执行一次,showTime()
+			    setTimeout("showTime()",1000);
+			}
+			//执行showTime()
+			showTime();
+		</script>
+	</body>
+</html>

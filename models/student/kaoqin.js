@@ -5,6 +5,7 @@
 /*************************************************************************************/
 var mongodb = require('../db');
 function Kaoqin(kaoqin) {
+    this.teacherSchool = kaoqin.teacherSchool;
     this.teacherNo     = kaoqin.teacherNo;
     this.courseID      = kaoqin.courseID;
     this.courseTime    = kaoqin.courseTime;
@@ -16,10 +17,11 @@ module.exports = Kaoqin;
 
 Kaoqin.prototype.save = function(callback) {
   var kaoqin = {
-      teacherNo:   this.teacherNo,
-      courseID:    this.courseID,
-      courseTime:  this.courseTime,
-      state:       this.state, 
+      teacherSchool:  this.teacherSchool, 
+      teacherNo:      this.teacherNo,
+      courseID:       this.courseID,
+      courseTime:     this.courseTime,
+      state:          this.state, 
   };
   mongodb.open(function (err, db) {
     if (err) {
@@ -85,6 +87,7 @@ Kaoqin.update = function(query,data,callback){
   });
 }
 
+
 Kaoqin.getOne = function(query,callback){
   mongodb.open(function(err,db){
     if(err){
@@ -130,6 +133,30 @@ Kaoqin.getSome = function(query,callback){
         }else{
         	callback(null, null);
         }
+      });
+    });
+  });
+}
+
+
+//初始化考勤中的学生集合
+Kaoqin.init =  function(query, students, callback) {
+  mongodb.open(function (err, db) {
+    if (err) {
+      mongodb.close();
+      return callback(err);
+    }
+    db.collection("kaoqin",function (err,kaoqin){
+      if (err) {
+        mongodb.close();
+        return callback(err);
+      } 
+      kaoqin.update(query,{$set:{"students": students}},function(err){
+        mongodb.close();
+        if(err){
+            return callback(err);
+        }
+        callback(null);
       });
     });
   });
