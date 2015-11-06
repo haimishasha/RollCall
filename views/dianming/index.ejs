@@ -1,0 +1,160 @@
+<%- include header %>
+<%- include left %>
+<form action="" method="post" enctype="multipart/form-data" name="form" target="sypost">
+    <div class="MainDiv">
+        <table width="99%" height="568" border="0" cellpadding="0" cellspacing="0" class="CContent">
+            <tr>
+                <th class="tablestyle_title">个人基本信息</th>
+            </tr>
+            <tr>
+                <td height="460" class="CPanel">
+
+                    <table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+                        <tr>
+                            <td align="left">
+                                <input type="button" class="button" id="change" value="修改"/>
+                                <input type="submit" class="button" id="save" onclick="alert('保存成功！');" value="保存"/>
+                                <!--<input type="button" name="Submit2" value="返回" class="button"-->
+                                       <!--onclick="window.history.go(-1);"/>-->
+                            </td>
+                        </tr>
+                        <TR>
+                            <TD width="100%" height="369">
+                                <fieldset style="height:100%;">
+                                    <legend>教师信息</legend>
+                                    <table border="0" cellpadding="2" cellspacing="1" style="width:100%">
+
+                                        <tr>
+                                            <td nowrap align="right" width="15%">教职工号:</td>
+                                            <td width="35%">
+                                                <input class="text" id="number" name='number' style="width:154px" value="<%= number%>" readonly="readonly"/></td>
+                                            <td width="16%" align="right" nowrap="nowrap">所在学校:</td>
+                                            <td width="34%"><input class="text" name='school' style="width:154px"
+                                                                   value="<%= school %>" ></td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td nowrap="nowrap" align="right">性别:</td>
+                                            <td><select name="sex">
+                                                    <option selected="selected">==请选择==</option>
+                                                    <option>男</option>
+                                                    <option >女</option>
+                                                </select></td>
+                                            <td align="right">学院:</td>
+                                            <td><input class="text" name='institute' style="width:154px" value="<%= institute %>">
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td align="right">教师姓名:</td>
+                                            <td><input name='trueName' type="text" class="text"
+                                                       style="width:154px" value="<%= trueName %>"/>
+                                            </td>
+                                            <td align="right">学历:</td>
+                                            <td><input class="text" name='education' style="width:154px" value="<%= education%>"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">职称:</td>
+                                            <td><input class="text" name='jobPosition' style="width:154px" value="<%= jobPosition%>"/>
+                                            </td>
+                                            <td align="right">籍贯:</td>
+                                            <td><input class="text" name='nativePlace' style="width:154px" value="<%= nativePlace%>"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">居住地址:</td>
+                                            <td><input class="text" name='homePosition' style="width:154px" value="<%= homePosition%>"/>
+                                            </td>
+                                            <td align="right">微信号:</td>
+                                            <td><input class="text" name='wechat' style="width:154px" value="<%= wechat%>"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">电话:</td>
+                                            <td><input class="text" name='telNumber' style="width:154px" value="<%= telNumber%>"/>
+                                            </td>
+                                            <td align="right">QQ:</td>
+                                            <td><input class="text" name='QQ' style="width:154px" value="<%= QQ%>"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">邮箱:</td>
+                                            <td><input class="text" name='email' style="width:154px" value="<%= email%>"/>
+                                            </td>
+                                            <td align="right">录入时间:</td>
+                                            <td><input class="text" name='writeTime' style="width:154px" value="<%= writeTime%>"/>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td height="137" align="right">备注:</td>
+                                            <td colspan="3"><textarea name="remark" cols="100" rows="8"><%= remark%></textarea>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br/>
+                                </fieldset>
+                            </TD>
+                        </TR>
+                    </TABLE>
+                </td>
+            </tr>
+            <TR>
+                <TD colspan="2" align="center" height="75">
+                    <input type="button" class="button" id="change" value="修改"/>
+                    <input type="submit" class="button" id="save" onclick="alert('保存成功！');" value="保存"/>
+                </TD>
+            </TR>
+        </TABLE>
+        </td>
+        </tr>
+        </table>
+    </div>
+</form>
+
+
+<h1><%= title %></h1>
+<form method="post">
+    <input type="submit" value="个人信息"/>
+    <fieldset>
+        <legend>个人信息</legend>
+        <div class="inputStyle">
+            <lable for="number">职工号：</lable>
+            <br/>
+            <input type="text" id="number" name="number" value=<%= number %> readonly="readonly"/></div>
+        <div class="inputStyle">
+            <lable for="trueName">真实姓名：</lable>
+            <br/>
+            <input type="text" id="trueName" name="trueName" value=<%= trueName %> readonly="readonly"/></div>
+        <div class="inputStyle">
+            <lable for="school"> 学校：</lable>
+            <br/> <input type="text" id="school" name="school" value="<%= school %>" readonly="readonly"/>
+        </div>
+        <div class="inputStyle">
+            <lable>学院：</lable>
+            <br/> <input type="text" name="institute" value="<%= institute %>" readonly="readonly"/></div>
+    </fieldset>
+    <input type="submit" value="课程信息"/>
+    <fieldset>
+        <legend>课程信息</legend>
+        <button class="submit"><a class="aColor" href="/addCourses">手动添加课程</a></button>
+        <br/><br/>
+        <input type="submit" value="导入"/>
+        <br/><br/>
+
+        <div class="inputStyle">
+            <lable>创建签到</lable>
+            <br/> <input type="text"/></div>
+        <div class="inputStyle">
+            <lable>创建签到</lable>
+            <br/> <input type="text"/></div>
+    </fieldset>
+    <button type="button" class="submit" id="change">修改</button>
+    <button type="submit" class="submit" id="save">保存</button>
+</form>
+<button class="submit"><a class="aColor" href="/logout">退出</a></button>
+<%- include footer %>
