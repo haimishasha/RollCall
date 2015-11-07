@@ -74,10 +74,13 @@ exports.getStudentInfo_signin = function(req, res){
         query = {
             openid : openid
         };
+        //console.log(openid);
         Student.getOne (query, function (err,student){
             if(err){
                 console.log('getsignerinfo1: ' + err.description);  
             }
+            //console.log('student');
+            //console.log(student);
             if(!student){ 
                 client.getUser(openid, function (err, result) {
                     if(err){
@@ -90,12 +93,13 @@ exports.getStudentInfo_signin = function(req, res){
                     };
                     var newstudent = new Student(newstudent);
                     req.session.wxuser = newstudent;
-                    req.session.stateOfstudent = "new";
+                    req.session.stateOfStudent = "new";
                     return res.redirect(appurl); 
                 });
-            }else{  
+            }else{ 
                 req.session.wxuser = student;
-                req.session.stateOfstudent = "old";
+                req.session.stateOfStudent = "old";
+                //console.log(req.session); 
                 return res.redirect(appurl); 
             }
         });
@@ -111,6 +115,7 @@ function getopenid(req,res,callback){
     if (state) {
         appurl = state;
     }
+    console.log(state);
     client.getAccessToken(code, function (err, result) {
         var data = result.data;
         //req.session.openid = data.openid;  

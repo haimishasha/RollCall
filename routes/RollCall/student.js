@@ -14,10 +14,10 @@ var url       = Config.url
 module.exports = function(app) {
   app.get('/user/getStudentInfo/:state?', wechat.getStudentInfo_signin);
   app.get('/stuBind/:teacherSchool/:teacherNo/:courseID/:courseTime', function (req,res){
-    var teacherSchool = req.query.teacherSchool;
-    var teacherNo     = req.query.teacherNo;
-    var courseID      = req.query.courseID;
-    var courseTime    = req.query.courseTime;
+    var teacherSchool = req.params.teacherSchool;
+    var teacherNo     = req.params.teacherNo;
+    var courseID      = req.params.courseID;
+    var courseTime    = req.params.courseTime;
     var url_stuSign   = '/stuSign/'+ teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     sign_wxuser(req, res, function (wxuser,stateOfSigner){
       req.session.wxuser = wxuser;  
@@ -25,7 +25,7 @@ module.exports = function(app) {
         console.log('您已经绑定成功');
         res.redirect(url_stuSign);
       }else{   
-        res.render('stuBind',{
+        res.render('dianming/stuBind',{
           teacherSchool:teacherSchool,
         });
       }
@@ -34,10 +34,10 @@ module.exports = function(app) {
 
 
   app.post('/stuBind/:teacherSchool/:teacherNo/:courseID/:courseTime',  function (req,res){
-    var teacherSchool    = req.query.teacherSchool;
-    var teacherNo        = req.query.teacherNo;
-    var courseID         = req.query.courseID;
-    var courseTime       = req.query.courseTime;
+    var teacherSchool    = req.params.teacherSchool;
+    var teacherNo        = req.params.teacherNo;
+    var courseID         = req.params.courseID;
+    var courseTime       = req.params.courseTime;
     var url_stuSign      = '/stuSign/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var wxuser           = req.session.wxuser;
     wxuser.stuNo         = req.body.stuNo;
@@ -60,23 +60,23 @@ module.exports = function(app) {
 
 
   app.get('/stuSign/:teacherSchool/:teacherNo/:courseID/:courseTime', function (req,res){
-    var teacherSchool = req.query.teacherSchool;
-    var teacherNo     = req.query.teacherNo;
-    var courseID      = req.query.courseID;
-    var courseTime    = req.query.courseTime;
+    var teacherSchool = req.params.teacherSchool;
+    var teacherNo     = req.params.teacherNo;
+    var courseID      = req.params.courseID;
+    var courseTime    = req.params.courseTime;
     var url_stuBind   = '/stuBind/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var student       = req.session.wxuser;
-    console.log("student ");
-    console.log(student);
+    //console.log("student ");
+    //console.log(student);
     if(student){
-      res.render("stuSign",{
+      res.render("dianming/stuSign",{
           student:student,
       });
     }else{
       sign_wxuser(req, res, function (wxuser,stateOfSigner){
         student = wxuser;  
         if(stateOfSigner == 'old'){
-          res.render("stuSign",{
+          res.render("dianming/stuSign",{
             student: student,
           });
         }else{
@@ -89,10 +89,10 @@ module.exports = function(app) {
 
   
   app.post('/stuSign/:teacherSchool/:teacherNo/:courseID/:courseTime', function (req,res){
-    var teacherSchool  = req.query.teacherSchool;
-    var teacherNo      = req.query.teacherNo;
-    var courseID       = req.query.courseID;
-    var courseTime     = req.query.courseTime;
+    var teacherSchool  = req.params.teacherSchool;
+    var teacherNo      = req.params.teacherNo;
+    var courseID       = req.params.courseID;
+    var courseTime     = req.params.courseTime;
     var stuNo          = req.body.stuNo;
     var stuName        = req.body.stuName;
     var stuClass       = req.body.stuClass;
@@ -101,6 +101,8 @@ module.exports = function(app) {
     var url_stuSuccess = '/stuSuccess/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var url_stuDetail  = '/stuDetail/'+ teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var student        = req.session.wxuser;
+    console.log("student");
+    console.log(student);
     query = {
       teacherSchool: teacherSchool,
       teacherNo:     teacherNo,
@@ -114,29 +116,61 @@ module.exports = function(app) {
       stuSchool:     stuSchool,
       stuInstitute:  stuInstitute,
     }
-    Student.getOneStudentInKaoqin (query, stuNo, function (err,student){
+    //下面两行为捏造的数据
+    var kaoqin = new Kaoqin(query);
+    kaoqin.save(function (err, result) {
       if(err){
-        console.log("stuSign getOneStudentInKaoqin err: " + err);
-      }else if(student){
-        if(student.arrived == "1"){
-          console.log("您已经签到成功");
-          res.redirect(url_stuDetail);  
+        console.log("err" + err);
+      }
+      //console.log(result);
+      Student.getOneStudentInKaoqin (query, stuNo, function (err,student_inkaoqin){
+        console.log(student_inkaoqin);
+        if(err){
+          console.log("stuSign getOneStudentInKaoqin err: " + err);
+        }else if(student_inkaoqin){
+          if(student_inkaoqin.arrived == "1"){
+            console.log("您已经签到成功");
+            res.redirect(url_stuDetail);  
+          }else{
+            student_inkaoqin.arrived = "1";
+            Student.updateInKaoqin (query, student_inkaoqin, function (err){
+              if(err){
+                console.log("stuSign updateInKaoqin err: " + err);
+              }else{
+                res.redirect(url_stuSuccess);
+              }
+            });
+          }
         }else{
-          student.arrived = "1";
-          Student.updateInKaoqin (query, student, function (err){
-            if(err){
-              console.log("stuSign updateInKaoqin err: " + err);
-            }else{
-              res.redirect(url_stuSuccess);
-            }
+          signin(student,query,data,function (result){
+            res.redirect(url_stuSuccess);
           });
         }
-      }else{
-        signin(student,query,data,function (result){
-          res.redirect(url_stuSuccess);
-        });
-      }
+      });
     });
+    // Student.getOneStudentInKaoqin (query, stuNo, function (err,student){
+    //   if(err){
+    //     console.log("stuSign getOneStudentInKaoqin err: " + err);
+    //   }else if(student){
+    //     if(student.arrived == "1"){
+    //       console.log("您已经签到成功");
+    //       res.redirect(url_stuDetail);  
+    //     }else{
+    //       student.arrived = "1";
+    //       Student.updateInKaoqin (query, student, function (err){
+    //         if(err){
+    //           console.log("stuSign updateInKaoqin err: " + err);
+    //         }else{
+    //           res.redirect(url_stuSuccess);
+    //         }
+    //       });
+    //     }
+    //   }else{
+    //     signin(student,query,data,function (result){
+    //       res.redirect(url_stuSuccess);
+    //     });
+    //   }
+    // });
   });
 
 
@@ -144,15 +178,15 @@ module.exports = function(app) {
 
 
   app.get('/stuSuccess/:teacherSchool/:teacherNo/:courseID/:courseTime', function (req,res){
-    var teacherSchool = req.query.teacherSchool;
-    var teacherNo     = req.query.teacherNo;
-    var courseID      = req.query.courseID;
-    var courseTime    = req.query.courseTime;
+    var teacherSchool = req.params.teacherSchool;
+    var teacherNo     = req.params.teacherNo;
+    var courseID      = req.params.courseID;
+    var courseTime    = req.params.courseTime;
     var url_stuSign   = '/stuSign/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var url_stuDetail = '/stuDetail/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var student       = req.session.wxuser;
     if(student){
-      res.render("stuSuccess",{
+      res.render("dianming/stuSuccess",{
         url_stuDetail:url_stuDetail
       });
     }else{
@@ -169,10 +203,10 @@ module.exports = function(app) {
   });
 
   app.get('/stuDetail/:teacherSchool/:teacherNo/:courseID/:courseTime', function (req,res){
-    var teacherSchool = req.query.teacherSchool;
-    var teacherNo     = req.query.teacherNo;
-    var courseID      = req.query.courseID;
-    var courseTime    = req.query.courseTime;
+    var teacherSchool = req.params.teacherSchool;
+    var teacherNo     = req.params.teacherNo;
+    var courseID      = req.params.courseID;
+    var courseTime    = req.params.courseTime;
     var student       = req.session.wxuser;
     var stuNo         = student.stuNo;
     var url_stuSign   = '/stuSign/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
@@ -188,7 +222,7 @@ module.exports = function(app) {
         if(err){
         console.log("stuDetail getOneStudentInKaoqins err: " + err);
         }else{
-          res.render("stuDetail",{
+          res.render("dianming/stuDetail",{
             arrivedCount:  arrivedCount,
             kaoqinCount:   kaoqinCount,
           });
@@ -212,7 +246,8 @@ function signin(student,query,data,callback){
   student.arrived  = "1";
   var condition = student.stuNo == data.stuNo && student.stuName == data.stuName && student.stuClass == data.stuClass && student.stuSchool == data.stuSchool && student.stuInstitute == data.stuInstitute;
   if(condition){
-    student.pushIntoKaoqin(query, student,function (err, result){
+    var newStudent = new Student(student);
+    newStudent.pushIntoKaoqin(query, newStudent,function (err, result){
       if(err){
         console.log("stuSign pushIntoKaoqin err: " + err);
       }else{
@@ -251,7 +286,7 @@ function sign_wxuser(req,res,callback){
   var wxuser    = {};
   var openid    = "1";
   var state     = req.url;
-  var stateOfSigner = req.session.stateOfSigner;
+  var stateOfStudent = req.session.stateOfStudent;
   if(req.session.wxuser) {
     wxuser       = req.session.wxuser;
     if(wxuser.ops){
@@ -261,8 +296,10 @@ function sign_wxuser(req,res,callback){
   } else {
       var client = wechat.client;
       var url_weixin    = client.getAuthorizeURL(url.url+'user/getStudentInfo', state,"snsapi_userinfo"); //无关注也可以授权，有明显授权页面
+      //console.log("url_weixin");
+      //console.log(url_weixin);
       return res.redirect(url_weixin);  
   }
-  callback(wxuser,stateOfSigner);
+  callback(wxuser,stateOfStudent);
 }
 

@@ -38,17 +38,17 @@
 </head>
 <body>
 
-<div style="width: 700px;position: absolute;left: 50%;margin-left: -350px;margin-top:20px">
-    <form method="post" action="" class="am-form" data-am-validator>
+ <div class="pageBg login_frame" style="background: white; background-size:100% 100%">
+      <form method="post" action="" class="am-form" data-am-validator>
         <fieldset>
-            <legend id="reg-id">签到详情</legend>
+            <legend id="reg-id">本节课的签到详情</legend>
             <div class="am-form-group">
                 <label for="doc-vld-school-3">已签到次数</label>
-                <input type="text" id="arrivedCount" name="arrivedCount"  placeholder="<%= arrivedCount%>" readonly/>
+                <input type="text" id="arrivedCount" name="arrivedCount"  value="<%= arrivedCount%>" readonly/>
             </div>
              <div class="am-form-group">
                 <label for="doc-vld-stuInstitute-3">总签到次数</label>
-                <input type="text" id="kaoqinCount" name="kaoqinCount"  placeholder="<%= kaoqinCount%>" readonly/>
+                <input type="text" id="kaoqinCount" name="kaoqinCount"  value="<%= kaoqinCount%>" readonly/>
             </div>
         </fieldset>
     </form>

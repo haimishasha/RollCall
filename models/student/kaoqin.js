@@ -9,14 +9,15 @@ function Kaoqin(kaoqin) {
     this.teacherNo     = kaoqin.teacherNo;
     this.courseID      = kaoqin.courseID;
     this.courseTime    = kaoqin.courseTime;
-    this.state         = "0";
+    //this.state         = "0";
+    this.state         = "1";
 };
 module.exports = Kaoqin;
 
 
 
 Kaoqin.prototype.save = function(callback) {
-  var kaoqin = {
+  var kaoqin_example = {
       teacherSchool:  this.teacherSchool, 
       teacherNo:      this.teacherNo,
       courseID:       this.courseID,
@@ -25,6 +26,7 @@ Kaoqin.prototype.save = function(callback) {
   };
   mongodb.open(function (err, db) {
     if (err) {
+      mongodb.close();
       return callback(err);
     }
     db.collection('kaoqin', function (err, kaoqin) {
@@ -32,7 +34,7 @@ Kaoqin.prototype.save = function(callback) {
         mongodb.close();
         return callback(err);
       } 
-      kaoqin.insert(kaoqin, {safe: true}, function (err, result) {
+      kaoqin.insert(kaoqin_example, {safe: true}, function (err, result) {
         mongodb.close();
         if (err) {
           return callback(err);

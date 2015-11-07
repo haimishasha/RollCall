@@ -159,7 +159,7 @@ Student.prototype.pushIntoKaoqin = function (query, data, callback) {
         mongodb.close();
         return callback(err);
       } 
-      kaoqin.update(query, {$push: data}, function (err,result) {
+      kaoqin.update(query, {$push: { "students": data}} , function (err,result) {
         mongodb.close();
         if (err) {
           return callback(err);
@@ -182,7 +182,7 @@ Student.pullFomKaoqin =  function(query, data, callback) {
         mongodb.close();
         return callback(err);
       }
-      kaoqin.update(query, {$pull: data}, function (err,result) {
+      kaoqin.update(query, {$pull: { "students": data}}, function (err,result) {
         mongodb.close();
         if (err) {
           return callback(err);
@@ -274,7 +274,7 @@ Student.getOneStudentInKaoqin = function(query, stuNo, callback) {
         students = kaoqin.students;
         students.forEach(function (student, index){
 	        if(student.stuNo == stuNo){
-	            callback(null, stuClass1);  
+	          callback(null, student);  
 	        }
         }); 
       }else{
