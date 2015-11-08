@@ -1,14 +1,83 @@
 <%- include header %>
+<%- include left %>
+<form action="" method="post" enctype="multipart/form-data" name="form" target="sypost">
+        <div class="MainDiv">
+                <table width="99%" height="568" border="0" cellpadding="0" cellspacing="0" class="CContent">
+                        <tr>
+                                <th class="tablestyle_title">教师课程</th>
+                        </tr>
+                        <tr>
+                                <td height="460" class="CPanel">
 
-<h1>手动添加课程</h1>
-<form method ="post">
-        职工号:<input type="text" id="number" name="number"/><br />
-        课程名:<input type="text" name="courseName"/><br />
-        课程时间: <input type="text" name="courseTime"/><br />
-        班级: <input type="text" name="courseClass"/><br />
-        教室:<input type="text" name="classRoom" /><br />
-        <input class="submit" type="submit" value="提交" /><br />
+                                        <table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+                                                <TR>
+                                                        <TD width="100%" height="369">
+                                                                <fieldset style="height:100%;">
+                                                                        <legend>教师信息</legend>
+                                                                        <table border="0" cellpadding="2" cellspacing="1" style="width:100%">
+
+                                                                                <tr>
+                                                                                        <td nowrap align="right" width="15%">教职工号:</td>
+                                                                                        <td width="35%">
+                                                                                                <input class="text" id="number" name='number' style="width:154px"  value="<%= number%>" readonly="readonly"/></td>
+                                                                                        <td width="16%" align="right" nowrap="nowrap">课程名称:</td>
+                                                                                        <td width="34%">
+                                                                                                <input class="text" name='courseName' style="width:154px"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td align="right" >课程时间:</td>
+                                                                                        <td><input class="text" name='courseTime' type="text" style="width:154px" /></td>
+                                                                                        <td align="right" >班级1:</td>
+                                                                                        <td><input class="text" name='courseClass1' style="..." ></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td align="right">教室:</td>
+                                                                                        <td><input class="text" name='classRoom' stye="text" /></td>
+                                                                                        <td align="right" >班级2:</td>
+                                                                                        <td><input class="text" name='courseClass2' style="..." ></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td align="right">班级3:</td>
+                                                                                        <td ><input class="text"  name='courseClass3'/></td>
+                                                                                        <td align="right">班级4:</td>
+                                                                                        <td><input class="text" name='courseClass4' style="..." ></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td align="right" >班级5:</td>
+                                                                                        <td><input class="text" name='courseClass5' /></td>
+                                                                                        <td align="right" >班级6:</td>
+                                                                                        <td><input class="text" name='courseClass6' style="..." ></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td align="right">录入人数:</td>
+                                                                                        <td><input class="text" name='usernum'/></td>
+                                                                                        <td align="right">上课时间:</td>
+                                                                                        <td><input class="text" name='classRoom' style="..." ></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td height="137" align="right">备注:</td>
+                                                                                        <td colspan="3"><textarea name="remark" cols="100" rows="8"></textarea>
+                                                                                        </td>
+                                                                                </tr>
+                                                                        </table>
+                                                                        <br/>
+                                                                </fieldset>
+                                                        </TD>
+                                                </TR>
+                                        </TABLE>
+                                </td>
+                        </tr>
+                        <TR>
+                                <TD colspan="2" align="center" height="75">
+                                        <input type="submit" class="button" id="save" onclick="alert('保存成功！');" value="提交"/>
+                                        <input type="file" name='file1' class="button" id="save"/><br>
+                                </TD>
+                        </TR>
+                </TABLE>
+                </td>
+                </tr>
+                </table>
+        </div>
 </form>
-        <button class="submit"><a class="aColor" href="/">导入</a></button>
 
 <%- include footer %>
