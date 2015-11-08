@@ -65,12 +65,44 @@ module.exports = function(app) {
     var courseID      = req.params.courseID;
     var courseTime    = req.params.courseTime;
     var url_stuBind   = '/stuBind/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
+    var url_stuDetail  = '/stuDetail/'+ teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var student       = req.session.wxuser;
     //console.log("student ");
     //console.log(student);
+    query = {
+      teacherSchool: teacherSchool,
+      teacherNo:     teacherNo,
+      courseID:      courseID,
+      courseTime:    courseTime,
+    }
     if(student){
-      res.render("dianming/stuSign",{
-          student:student,
+      stuNo = student.stuNo,
+      Student.getOneStudentInKaoqin (query, stuNo, function (err,student_inkaoqin){
+        console.log(student_inkaoqin);
+        if(err){
+          console.log("stuSign getOneStudentInKaoqin err: " + err);
+        }else if(student_inkaoqin){
+          if(student_inkaoqin.arrived == "1"){
+            console.log("您已经签到成功");
+            res.redirect(url_stuDetail); 
+          }else{
+            res.render("dianming/stuSign",{
+              student:student,
+            });
+          }
+        }else{
+          sign_wxuser(req, res, function (wxuser,stateOfSigner){
+            student = wxuser;  
+            if(stateOfSigner == 'old'){
+              res.render("dianming/stuSign",{
+                student: student,
+              });
+            }else{
+              console.log("签到前请先绑定您的信息");   
+              res.redirect(url_stuBind);
+            }
+          });  
+        }
       });
     }else{
       sign_wxuser(req, res, function (wxuser,stateOfSigner){

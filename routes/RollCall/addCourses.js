@@ -41,7 +41,7 @@ module.exports= function(app){
             if(!teacher){
                 console.log(err);
             }
-            res.render('./dianming/addcourses', {
+            res.render('dianming/addCourses', {
                 title: '手动添加课程',
                 number: teacher.number,
             });
