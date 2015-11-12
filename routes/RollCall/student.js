@@ -54,6 +54,7 @@ module.exports = function(app) {
       if(result){
         console.log("绑定成功");
         req.session.wxuser = newStudent;
+        req.session.stateOfStudent = 'old';
         res.redirect(url_stuSign);
       }
     }); 
@@ -68,9 +69,14 @@ module.exports = function(app) {
     var url_stuBind   = '/stuBind/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var url_stuDetail  = '/stuDetail/'+ teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var student       = req.session.wxuser;
+<<<<<<< HEAD
     //console.log("student ");
     //console.log(student);
     
+=======
+    console.log("student ");
+    console.log(student);
+>>>>>>> d13da985bc855240e3c0fa8c179339858e17b71c
     query = {
       teacherSchool: teacherSchool,
       teacherNo:     teacherNo,
@@ -80,7 +86,7 @@ module.exports = function(app) {
     if(student){
       stuNo = student.stuNo,
       Student.getOneStudentInKaoqin (query, stuNo, function (err,student_inkaoqin){
-        console.log(student_inkaoqin);
+        //console.log(student_inkaoqin);
         if(err){
           console.log("stuSign getOneStudentInKaoqin err: " + err);
         }else if(student_inkaoqin){
@@ -93,8 +99,12 @@ module.exports = function(app) {
             });
           }
         }else{
+          //console.log(99999);
           sign_wxuser(req, res, function (wxuser,stateOfSigner){
             student = wxuser;  
+            //console.log('wxuser');
+            //console.log(wxuser);
+            console.log(stateOfSigner);
             if(stateOfSigner == 'old'){
               res.render("dianming/stuSign",{
                 student: student,
@@ -135,8 +145,8 @@ module.exports = function(app) {
     var url_stuSuccess = '/stuSuccess/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var url_stuDetail  = '/stuDetail/'+ teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var student        = req.session.wxuser;
-    console.log("student");
-    console.log(student);
+    //console.log("student");
+    //console.log(student);
     query = {
       teacherSchool: teacherSchool,
       teacherNo:     teacherNo,
@@ -158,7 +168,7 @@ module.exports = function(app) {
       }
       //console.log(result);
       Student.getOneStudentInKaoqin (query, stuNo, function (err,student_inkaoqin){
-        console.log(student_inkaoqin);
+        //console.log(student_inkaoqin);
         if(err){
           console.log("stuSign getOneStudentInKaoqin err: " + err);
         }else if(student_inkaoqin){
