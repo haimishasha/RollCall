@@ -73,7 +73,6 @@ module.exports = function (app) {
             req.flash('success', '登陆成功');
             res.redirect('/');
         });
-
     });
     app.get('/reg', function (req, res) {
         res.render('dianming/reg', {

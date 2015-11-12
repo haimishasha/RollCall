@@ -10,17 +10,21 @@ module.exports= function(app){
         var query ={
             number:req.session.teacher.number
         };
+        console.log(query);
         AddCourses.getAll(query,function(err,addCourses){
             if(!addCourses){
                 console.log(err);
             }
             if(err){
+                console.log(1010);
                 addCourses = [];
             }
+            console.log(addCourses);
             res.render('dianming/Course', {
                 title:'课程',
                 addCourses:addCourses,
                 length:addCourses.length,
+                courseName:addCourses.courseName
             });
         });
     });
@@ -59,13 +63,21 @@ module.exports= function(app){
             courseClass5:req.body.courseClass5,
             courseClass6:req.body.courseClass6,
             usernum:req.body.usernum,
+            week1:req.body.week1,
+            week2:req.body.week2,
+            week3:req.body.week3,
+            week4:req.body.week4,
+            week5:req.body.week5,
+            week6:req.body.week6,
+            week7:req.body.week7,
             classRoom:req.body.classRoom
         });
         newAddCourses.save(function(err){
             if(err){
-                return res.redirect('/course');
+                return res.redirect('/Course');
             }
-            res.redirect('/course');
+            console.log(7777);
+            res.redirect('/Course');
         });
     });
 };

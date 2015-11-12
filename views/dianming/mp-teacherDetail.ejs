@@ -1,0 +1,44 @@
+<%- include mp-header %>
+
+<% teacher.forEach(function(course){%>
+
+<div class="am-panel am-panel-warning">
+    <div class="am-panel-hd">
+        <h3 class="am-panel-title"><%= course.courseName %>共签到多少人</h3>
+    </div>
+    <% courseClass.forEach(function(course){ var j=6; while(j>=0){j--;if(courseClass[j]!=null){var i=j;%>
+    <div class="am-panel am-panel-success">
+        <div class="am-panel-hd">
+            <h3 class="am-panel-title"><%= course.courseClass[i] %>签到多少人</h3>
+        </div>
+
+        <table class="am-table am-table-bordered am-table-radius am-table-striped">
+            <thead>
+            <tr>
+                <th>学生学号</th>
+                <th>学生姓名</th>
+                <th>签到时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--function forEach(student,callback){-->
+            <!--i++;-->
+            <!--callback(student[i]);-->
+            <!--}-->
+
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+    <%}} }); %>
+
+</div>
+
+<%}); %>
+<%- include mp-footer %>

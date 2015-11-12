@@ -5,6 +5,8 @@
  */
 var teacher =require('./RollCall/teacher');
 var student =require('./RollCall/student');
+var mp_teacher =require('./RollCall/mp-teacher');
+
 var express = require('express');
 
 
@@ -14,4 +16,6 @@ module.exports=function(app){
     teacher(app);
     student(app);
     addCourses(app);
+    mp_teacher(app);
+
 };

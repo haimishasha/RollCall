@@ -1,0 +1,31 @@
+<%- include mp-header%>
+
+
+                <div class="am-panel am-panel-success">
+                    <div class="am-panel-hd">
+                        <h3 class="am-panel-title">今日课程</h3>
+                    </div>
+                     <table class="am-table am-table-bordered am-table-radius am-table-striped">
+                    <thead>
+                    <tr>
+                        <th>课程名</th>
+                        <th>上课地点</th>
+                        <th>课程时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <% teacher.forEach(function (post, index) { %>
+
+                    <tr>
+                        <td><%= post.courseName %></td>
+                        <td><%= post.classRoom %></td>
+                        <td ><%= post.week %></td>
+                    </tr>  
+                        <% });%>
+
+                    </tbody>
+                </table>
+                </div>
+
+           
+<%- include mp-footer%>

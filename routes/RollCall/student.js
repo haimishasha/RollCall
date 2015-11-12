@@ -6,6 +6,7 @@
 
 var Student   = require('../../models/student/student.js');   
 var Kaoqin    = require('../../models/student/kaoqin.js');  
+var addCourses    = require('../../models/teacher/addCourses.js');  
 var wechat    = require("../weixin/wechat");
 var Config    = require('../weixin/config');
 var url       = Config.url
@@ -69,6 +70,7 @@ module.exports = function(app) {
     var student       = req.session.wxuser;
     //console.log("student ");
     //console.log(student);
+    
     query = {
       teacherSchool: teacherSchool,
       teacherNo:     teacherNo,
