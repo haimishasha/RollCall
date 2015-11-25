@@ -28,6 +28,7 @@ Student.prototype.save = function(callback) {
       stuName:      this.stuName,
       stuSchool:    this.stuSchool,
       stuInstitute: this.stuInstitute,
+      arrived:this.arrived
   };
   mongodb.open(function (err, db) {
     if (err) {

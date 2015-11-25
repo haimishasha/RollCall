@@ -69,14 +69,14 @@ module.exports = function(app) {
     var url_stuBind   = '/stuBind/' + teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var url_stuDetail  = '/stuDetail/'+ teacherSchool + "/" + teacherNo + "/" + courseID + "/" + courseTime;
     var student       = req.session.wxuser;
-<<<<<<< HEAD
+ HEAD
     //console.log("student ");
     //console.log(student);
     
-=======
+
     console.log("student ");
     console.log(student);
->>>>>>> d13da985bc855240e3c0fa8c179339858e17b71c
+d13da985bc855240e3c0fa8c179339858e17b71c
     query = {
       teacherSchool: teacherSchool,
       teacherNo:     teacherNo,
@@ -216,9 +216,6 @@ module.exports = function(app) {
     //   }
     // });
   });
-
-
-
 
 
   app.get('/stuSuccess/:teacherSchool/:teacherNo/:courseID/:courseTime', function (req,res){

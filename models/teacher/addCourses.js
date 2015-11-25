@@ -134,7 +134,7 @@ AddCourses.prototype.save = function (callback) {
             classRoom: this.classRoom,
             week: this.week7,
             time: time,
-            day: 7
+            day: 0
         }];
     //打开数据库
     mongodb.open(function (err, db) {

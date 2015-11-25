@@ -1,19 +1,31 @@
 <%- include mp-header%>
+<form method="post" action="" class="am-form" data-am-validator>
+        <fieldset>
+            <legend id="reg-id">签到</legend>
+            <div class="am-form-group">
+                <label for="doc-vld-school-3">学校</label>
+                <input type="text" id="doc-vld-school-3" name="stuSchool"  value="<%- tea[0].school%>"  />
+            </div>
+             <div class="am-form-group">
+                <label for="doc-vld-stuInstitute-3">学院</label>
+                <input type="text" id="doc-vld-stuInstitute-3" name="stuInstitute"  value="<%- tea[0].institute%>" />
+            </div>
+            <div class="am-form-group">
+                <label for="doc-vld-course-3">课程</label>
 
-
-                <div class="am-panel am-panel-danger">
-                    <div class="am-panel-hd">
-                        <h3 class="am-panel-title">学生补签</h3>
-                    </div>
-                     
-                      <div class="am-form-group">
-                <label for="class">班级</label>
-                <select id="class" name="class" >
-                <option  value="网络一班">网络一班</option>
-                <option  value="网络二班">网络二班</option>
-                <option  value="软件一班">软件一班</option>
-                <option  value="软件二班">软件二班</option>
+                <select id="doc-vld-course-3" name="stuCourse"  onchange="mpTeacher(this.value)" >
+                    <% teacher.forEach(function(tea){%>
+                  <option ><%= tea.courseName%></option>
+                     <%}); %>
                 </select>
+                
+            </div>
+            <div class="am-form-group">
+                <label for="stuClass">班级</label>
+                <select id="stuClass" name="stuClass" >
+                
+                </select>
+                
             </div>
             <div class="am-form-group">
                 <label for="doc-vld-name-3">姓名</label>
@@ -21,11 +33,11 @@
             </div>
             <div class="am-form-group">
                 <label for="doc-vld-no-3">学号</label>
-                <input type="text" id="doc-vld-no-3" name="stuNo" />
+                <input type="text" id="doc-vld-no-3" name="stuNo"  />
             </div>
-            <button class="am-btn am-btn-success" type="submit" >补签</button>
-
-                </div>
-
-           
+            <button class="am-btn am-btn-secondary" type="submit" >补签</button>
+            <button class="am-btn am-btn-secondary" type="cancel" >取消</button>
+        </fieldset>
+    </form>
+     <script src="/javascripts/mp-teacherAdd.js"></script>      
 <%- include mp-footer%>
