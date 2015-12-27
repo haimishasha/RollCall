@@ -139,12 +139,12 @@ Teacher.remove = function(query,callback){
         if(err){
             return callback(err);
         }
-        db.collection('teachers',function(err,teacher){
+        db.collection('teachers',function (err,teacher){
             if(err){
                 mongodb.close();
                 return callback(err);
             }
-            teacher.remove(query,function(err,result){
+            teacher.remove(query,function (err,result){
                 mongodb.close();
                 if(err){
                     return callback(err);

@@ -4,8 +4,8 @@
  
  <div class="am-form-group">
 
-      <label for="doc-select-1">课程名</label>
-      <select id="doc-select-1" onchange="mpTeacher(this.value)">
+      <label for="mpclass">课程名</label>
+      <select id="mpclass" onchange="mpTeacher(this.value)">
         <% teacher.forEach(function(tea){%>
         <option ><%= tea.courseName%></option>
         <%}); %>

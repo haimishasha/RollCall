@@ -1,3 +1,7 @@
+$(document).ready(function () {
+	var t = $("#mpclass").val();
+	mpTeacher(t);
+});
 function mpTeacher(teacherClass) {
 	jQuery.ajax({
 		url: '/mp-teacher/' + teacherClass,
@@ -34,7 +38,7 @@ function mpTeacher(teacherClass) {
 			        '</table>'+
 			    '</div>')
 	  		 if( i ){
-	                             while(i>=0){i--;
+	                             while(i>0){i--;
 	                             	$("#allstudent").append(
 			            ' <tr><td>'+data[i].stuClass+'</td><td>'+data[i].stuNo+'</td><td>'+data[i].stuName+'</td><td>'+data[i].time+'</td></tr>')
 			          } }
