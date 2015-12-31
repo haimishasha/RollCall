@@ -1,12 +1,18 @@
 $(document).ready(function () {
 	var t = $("#mpclass").val();
 	mpTeacher(t);
+	var dianmingCourse = $('#dianmingCourse').val();
+	var url = '/mp-teacher/creat/'+dianmingCourse;
+	$('#buttonDianming').attr("href",url);
 });
-function mpTeacher(teacherClass) {
+function mpTeacher(course,teacherClass) {
+	console.log('teacherClass'+teacherClass);
+	// var tea = $("#mpclass").val();
+	// console.log('tea'+tea);
 	jQuery.ajax({
-		url: '/mp-teacher/' + teacherClass,
+		url: '/mp-teacher/' +course+'/'+ teacherClass,
 		type:'GET',
-		complete: function(xhr, textStatus) {
+	complete: function(xhr, textStatus) {
 	  	console.log('complete');
 	  	console.log(xhr);
 	  	console.log(textStatus);
@@ -58,3 +64,4 @@ function mpTeacher(teacherClass) {
 
 	});
 };
+

@@ -29,6 +29,7 @@ module.exports = AddCourses;
 AddCourses.prototype.save = function (callback) {
     var date = new Date();
     var time = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    
     var week = [
         {
             number: this.number,

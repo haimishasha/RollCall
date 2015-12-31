@@ -1,3 +1,7 @@
+$(document).ready(function() {
+	var ccc = $("#ggg").val();
+	mpTeacher(ccc);
+});
 function mpTeacher(teacherClass) {
 	jQuery.ajax({
 		url: '/mp-teacherAdd/' + teacherClass,
@@ -20,9 +24,6 @@ function mpTeacher(teacherClass) {
 	  		$("#stuClass").append('<option  >'+data[i]+'</option>')	
 	  	}
 	  	}
-	  	
-
-
 	  },
 	   error: function(xhr, textStatus, errorThrown) {
 	    console.log('error');

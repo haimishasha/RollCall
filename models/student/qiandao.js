@@ -16,7 +16,10 @@ Qiandao.prototype.save = function (callback) {
         + date.getMonth() + '- ' + date.getDate() + ' '
         + date.getHours() + ':' + date.getMinutes() + ':'
         + date.getSeconds();
+   var id = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds() + Math.random().toString(36).substr(2,16);
+
     var qiandaos = {
+        _id:id,
         stuSchool: this.stuSchool,
         stuInstitute: this.stuInstitute,
         stuClass: this.stuClass,

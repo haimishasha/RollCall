@@ -30,8 +30,13 @@ module.exports = function (app) {
     });
 
 
-    app.get("/mp-teacher", function (req, res) {
-        var date = new Date();
+// app.get("/mp-teacher", function (req, res) {
+//         res.render('dianming/mp-teacherDetail',{
+//                 title: "签到详情",     
+//             });
+//     });
+ app.get('/mp-teacher/creat',function (req,res){
+         var date = new Date();
         var day = date.getDay();
         var time = date.getHours();
         var query = {
@@ -46,23 +51,48 @@ module.exports = function (app) {
             if (err) {
                 console.log(err);
             }
-             res.render('dianming/mp-teacherDetail',{
-                title: "签到详情",
+             res.render('dianming/creatDianming',{
+                title: "创建签到",
                     teacher: teacher,
                     course:[teacher[0].courseClass1,teacher[0].courseClass2,teacher[0].courseClass3,
                     teacher[0].courseClass4,teacher[0].courseClass5,teacher[0].courseClass6],
-                    todayDay: day,
-                    
+                    todayDay: day,            
             });
         });
     });
-app.get("/mp-teacher/:teacherClass",function (req,res){
+app.get('/mp-teacher/creat/:dianmingCourse',function (req,res){
+        var date = new Date();
+        var day = date.getDay();
+        var time = date.getHours();
+        var dianmingCourse = req.params.dianmingCourse; 
+        var query = {
+            number: req.session.teacher.number,
+            day: day,
+            courseName:dianmingCourse,
+            week:{$ne: null}
+        };
+        AddCourses.getAll(query,function (err,docs){
+              if (err) {
+                console.log(err);
+            }
+             res.render('dianming/mp-teacherDetail',{
+                 title: "签到详情",
+                 teacher:docs,
+                 course:[docs[0].courseClass1,docs[0].courseClass2,docs[0].courseClass3,
+                    docs[0].courseClass4,docs[0].courseClass5,docs[0].courseClass6],
+                 todayDay: day,   
+            });
+            console.log(docs);
+        });
+    });
+app.get("/mp-teacher/:dianmingCourse/:teacherClass",function (req,res){
       var teacherClass = req.params.teacherClass;
+      var dianmingCourse = req.params.dianmingCourse; 
       var query = {
-        stuCourse : teacherClass,
+        stuCourse: dianmingCourse,
+        stuClass : teacherClass,
       };
-      console.log('teacherClass');
-      console.log(teacherClass);
+      console.log('query',query);
       Qiandao.getAll(query , function(err,student){
         if(err){
             console.log(err);
@@ -136,7 +166,7 @@ app.get("/mp-teacherAdd/:teacherClass", function (req, res) {
         });
     });
 
-app.post('/mp-teacherAdd',function(req,res){
+app.post('/mp-teacherAdd',function (req,res){
     var stuNo          = req.body.stuNo;
     var stuName        = req.body.stuName;
     var stuClass       = req.body.stuClass;
@@ -162,20 +192,22 @@ app.post('/mp-teacherAdd',function(req,res){
     Qiandao.get(query,function(err,qiandao){
         if(err){
             console.log(err);
-            return res.redirect('/mp-teacherAdd');
+            //return res.redirect('/mp-teacherAdd');
         }
         if(qiandao){
             console.log('已存在');
-            return res.redirect('/mp-teacher');
+            res.send('<script>alert("已签到")</script>');
+            //return res.redirect('/mp-teacher');
         }
         newQiandao.save(function(err,qiandao){
             if(err){
                 console.log(err);
-                return res.redirect('/mp-teacherAdd')
+                //return res.redirect('/mp-teacherAdd')
             }
             console.log(qiandao);
             req.session.qiandao = qiandao;
-            res.redirect('/mp-teacher');
+            res.send('<script>alert("签到成功")</script>');
+           //res.redirect('/mp-teacherAdd')
         })
     });
    

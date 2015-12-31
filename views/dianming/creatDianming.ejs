@@ -1,0 +1,15 @@
+<%- include mp-header %>
+ <div class="am-form-group">
+
+      <label >课程名</label>
+      <select  id="dianmingCourse">
+        <% teacher.forEach(function(tea){%>
+        <option ><%= tea.courseName%></option>
+        <%}); %>
+      </select>
+      <span class="am-form-caret"></span>
+</div>
+    <a  id="buttonDianming" href=""><button >创建点名</button></a>
+
+<script src="/javascripts/mp-teacher.js"></script>
+<%- include mp-footer %>

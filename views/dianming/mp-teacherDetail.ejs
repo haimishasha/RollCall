@@ -1,22 +1,25 @@
 <%- include mp-header %>
 
-<form class="am-form">
- 
- <div class="am-form-group">
-
-      <label for="mpclass">课程名</label>
-      <select id="mpclass" onchange="mpTeacher(this.value)">
-        <% teacher.forEach(function(tea){%>
-        <option ><%= tea.courseName%></option>
-        <%}); %>
-      </select>
-      <span class="am-form-caret"></span>
-    </div>
-</form>
+<div class="am-panel am-panel-default">
+  <div class="am-panel-hd">课程：<%= teacher[0].courseName%></div>
+  <div class="am-panel-bd">
+    <!-- 面板内容 -->
+             <form class="am-form">
+	 <div class="am-form-group">
+	      <label for="mpclass">班级名</label>
+	      <select id="mpclass"  onchange="mpTeacher('<%= teacher[0].courseName%>',this.value)">
+	        <% course.forEach(function(cou){if(cou){%>
+	        <option ><%= cou%></option>
+	        <%}}); %>
+	      </select>
+	      <span class="am-form-caret"></span>
+	    </div>
+	</form>
+    <!-- 面板内容 -->
+  </div>
+</div>
 
 <div  id="TeacherCourse">
-
-
 </div>
 
 
